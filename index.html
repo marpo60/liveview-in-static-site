@@ -1,0 +1,14 @@
+<script src="/live_view.js"></script>
+<script>
+  let liveSocket = new phoenix_live_view.LiveSocket("wss://totp-generator-example.marpo60.xyz/live")
+  liveSocket.connect()
+  let channel = liveSocket.channel("s", {})
+  channel.join()
+  channel.on("static", obj => {
+    var innerText = obj.html;
+    var div = document.createElement('div');
+    div.innerHTML = innerText;
+    document.body.append(div);
+    liveSocket.joinRootViews();
+  })
+</script>
